@@ -10,7 +10,9 @@ This is a toy project for parsing the contents of PEP files in [python/peps](htt
 
 ## Examples
 
-![Obsidian graph](graph.png)
+![Obsidian graph by status](by-status.png)
+
+![Obsidian graph by topic](by-topic.png)
 
 ## Development
 
