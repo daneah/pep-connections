@@ -28,7 +28,7 @@ def get_mentioned_peps(pep_content: str) -> set[str]:
     """
 
     return {
-        mentioned_pep.rjust(4, '0')
+        mentioned_pep.rjust(4, "0")
         for pattern in {
             r"PEP ([0-9]{3,4})",
             r":pep:`([0-9]{3,4})`",
@@ -38,6 +38,7 @@ def get_mentioned_peps(pep_content: str) -> set[str]:
         }
         for mentioned_pep in re.findall(pattern, pep_content)
     }
+
 
 def get_identifier(pep_content: str) -> str:
     """Get the identifier of the PEP."""
@@ -61,7 +62,10 @@ def get_topics(pep_content: str) -> set[str]:
     """Get assigned topics for the PEP. Most PEPs do not have a topic."""
 
     try:
-        return {slugify(topic) for topic in re.findall(r"^Topic: (.*)", pep_content)[0].split(', ')}
+        return {
+            slugify(topic)
+            for topic in re.findall(r"^Topic: (.*)", pep_content)[0].split(", ")
+        }
     except IndexError:
         return set()
 
@@ -92,13 +96,13 @@ def output_markdown(connects: dict[str, dict[str, str | set[str]]]) -> None:
         with output_path.open("a") as output_file:
             output_file.write(f"#status--{info['status']}\n")
 
-            for topic in info['topics']:
+            for topic in info["topics"]:
                 output_file.write(f"#topic--{topic}\n")
 
             output_file.write(f"\n# PEP {pep}: {info['title']}\n\n")
             output_file.write("## Mentions\n\n")
 
-            for mention in info['mentions']:
+            for mention in info["mentions"]:
                 output_file.write(f"- [[{mention}]]\n")
 
 
@@ -109,10 +113,10 @@ if __name__ == "__main__":
         with pep_path.open() as pep_file:
             pep_content = pep_file.read()
             pep_identifier = get_identifier(pep_content)
-            connects[pep_identifier]['mentions'] = get_mentioned_peps(pep_content)
-            connects[pep_identifier]['status'] = get_status(pep_content)
-            connects[pep_identifier]['topics'] = get_topics(pep_content)
-            connects[pep_identifier]['title'] = get_title(pep_content)
+            connects[pep_identifier]["mentions"] = get_mentioned_peps(pep_content)
+            connects[pep_identifier]["status"] = get_status(pep_content)
+            connects[pep_identifier]["topics"] = get_topics(pep_content)
+            connects[pep_identifier]["title"] = get_title(pep_content)
 
     create_clean_output_dir()
     output_markdown(connects)

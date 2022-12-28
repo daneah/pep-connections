@@ -11,3 +11,32 @@ This is a toy project for parsing the contents of PEP files in [python/peps](htt
 ## Examples
 
 ![Obsidian graph](graph.png)
+
+## Development
+
+This project uses [tox](https://tox.wiki).
+
+### Run tests
+
+```shell
+$ tox
+```
+
+### Type check
+
+```shell
+$ tox -e typecheck
+```
+
+### Lint
+
+```shell
+$ tox -e lint
+```
+
+### Format
+
+```shell
+$ tox -e format  # to check
+$ tox -e format -- .  # to fix
+```

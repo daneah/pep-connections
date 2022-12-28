@@ -10,7 +10,7 @@ import connect
         ("Foo Bar!", "foo-bar"),
         ("Foo-bar is best", "foo-bar-is-best"),
         ("", ""),
-    ]
+    ],
 )
 def test_slugify(input_string, expected):
     assert connect.slugify(input_string) == expected
@@ -26,7 +26,7 @@ def test_slugify(input_string, expected):
         ("Requires: 440", {"0440"}),
         ("PEP 440 and :pep:`457` are great", {"0440", "0457"}),
         ("PEP 440 is PEP 440 is PEP 440", {"0440"}),
-    ]
+    ],
 )
 def test_get_mentioned_peps(input_string, expected):
     assert connect.get_mentioned_peps(input_string) == expected
