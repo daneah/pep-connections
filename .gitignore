@@ -1,0 +1,9 @@
+pep-*.txt
+pep-*.rst
+
+output/
+
+.venv/
+
+__pycache__/
+*.egg-info/
