@@ -43,19 +43,25 @@ def get_mentioned_peps(pep_content: str) -> set[str]:
 def get_identifier(pep_content: str) -> str:
     """Get the identifier of the PEP."""
 
-    return re.findall(r"PEP: (.*)", pep_content)[0]
+    return re.findall(r"PEP:\s+(.*)", pep_content)[0].rjust(4, "0")
 
 
 def get_title(pep_content: str) -> str:
     """Get the title of the PEP."""
 
-    return re.findall(r"Title: (.*)", pep_content)[0]
+    return re.findall(r"Title:\s+(.*)", pep_content)[0]
 
 
 def get_status(pep_content: str) -> str:
     """Get the status of the PEP."""
 
-    return slugify(re.findall(r"Status: (.*)", pep_content)[0])
+    return slugify(re.findall(r"Status:\s+(.*)", pep_content)[0])
+
+
+def get_type(pep_content: str) -> str:
+    """Get the type of the PEP."""
+
+    return slugify(re.findall(r"Type:\s+(.*)", pep_content)[0])
 
 
 def get_topics(pep_content: str) -> set[str]:
@@ -95,6 +101,7 @@ def output_markdown(connects: dict[str, dict[str, str | set[str]]]) -> None:
 
         with output_path.open("a") as output_file:
             output_file.write(f"#status--{info['status']}\n")
+            output_file.write(f"#type--{info['type']}\n")
 
             for topic in info["topics"]:
                 output_file.write(f"#topic--{topic}\n")
@@ -117,6 +124,7 @@ if __name__ == "__main__":
             connects[pep_identifier]["status"] = get_status(pep_content)
             connects[pep_identifier]["topics"] = get_topics(pep_content)
             connects[pep_identifier]["title"] = get_title(pep_content)
+            connects[pep_identifier]["type"] = get_type(pep_content)
 
     create_clean_output_dir()
     output_markdown(connects)
