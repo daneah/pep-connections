@@ -33,7 +33,7 @@ def test_get_mentioned_peps(input_string, expected):
 
 
 def test_get_identifier():
-    assert connect.get_identifier("PEP: 440") == "440"
+    assert connect.get_identifier("PEP: 440") == "0440"
 
 
 def test_get_title():
@@ -42,6 +42,10 @@ def test_get_title():
 
 def test_get_status():
     assert connect.get_status("Status: Cool") == "cool"
+
+
+def test_get_type():
+    assert connect.get_type("Type: Standards Track") == "standards-track"
 
 
 def test_get_topics():
