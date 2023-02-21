@@ -70,7 +70,7 @@ def get_topics(pep_content: str) -> set[str]:
     try:
         return {
             slugify(topic)
-            for topic in re.findall(r"^Topic: (.*)", pep_content)[0].split(", ")
+            for topic in re.findall(r"Topic: (.*)", pep_content)[0].split(", ")
         }
     except IndexError:
         return set()
@@ -86,7 +86,7 @@ def output_markdown(connects: dict[str, dict[str, str | set[str]]]) -> None:
 
     Example:
 
-    #status--active
+    #status/active
     # PEP 0000: Some title
 
     ## Mentioned
@@ -100,11 +100,11 @@ def output_markdown(connects: dict[str, dict[str, str | set[str]]]) -> None:
         output_path.touch()
 
         with output_path.open("a") as output_file:
-            output_file.write(f"#status--{info['status']}\n")
-            output_file.write(f"#type--{info['type']}\n")
+            output_file.write(f"#status/{info['status']}\n")
+            output_file.write(f"#type/{info['type']}\n")
 
             for topic in info["topics"]:
-                output_file.write(f"#topic--{topic}\n")
+                output_file.write(f"#topic/{topic}\n")
 
             output_file.write(f"\n# PEP {pep}: {info['title']}\n\n")
             output_file.write("## Mentions\n\n")
