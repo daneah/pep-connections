@@ -14,6 +14,8 @@ This is a toy project for parsing the contents of PEP files in [python/peps](htt
 
 ![Obsidian graph by topic](by-topic.png)
 
+![Obsidian local graph of person](local-graph-by-person.png)
+
 ## Development
 
 This project uses [tox](https://tox.wiki).

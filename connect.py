@@ -92,7 +92,11 @@ def get_delegate(pep_content: str) -> Optional[str]:
     """Get the delegate of the PEP."""
     bdfl_delegates = re.findall(r"BDFL-Delegate: (.*)", pep_content)
     pep_delegates = re.findall(r"PEP-Delegate: (.*)", pep_content)
-    return (bdfl_delegates or pep_delegates)[0].split(" <")[0].strip() if bdfl_delegates or pep_delegates else None
+    return (
+        (bdfl_delegates or pep_delegates)[0].split(" <")[0].strip()
+        if bdfl_delegates or pep_delegates
+        else None
+    )
 
 
 def create_clean_output_dir() -> None:
@@ -160,7 +164,7 @@ def output_markdown(connects: dict[str, dict[str, str | set[str] | None]]) -> No
 
             output_file.write("\n## Content\n\n")
             for line in str(info["markdown"]).splitlines():
-                output_file.write(re.sub(r'^#', '###', line))
+                output_file.write(re.sub(r"^#", "###", line))
                 output_file.write("\n")
 
 
