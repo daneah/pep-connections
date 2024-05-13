@@ -50,3 +50,11 @@ def test_get_type():
 
 def test_get_topics():
     assert connect.get_topics("Topic: Cool, Awesome Man!") == {"cool", "awesome-man"}
+
+
+def test_get_authors():
+    assert connect.get_authors("Author: John Doe <john.doe@gmail.com>, Frank Clark") == {"John Doe", "Frank Clark"}
+
+
+def test_get_delegate():
+    assert connect.get_delegate("PEP-Delegate: John Doe <john.doe@gmail.com>") == "John Doe"
