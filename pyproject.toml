@@ -1,0 +1,8 @@
+[project]
+name = "pep-connections"
+version = "0.0.1"
+dependencies = [
+    "rich>=13.6.0",
+    "rst-to-myst[sphinx]>=0.4.0",
+    "tqdm>=4.66.4",
+]
