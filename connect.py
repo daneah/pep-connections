@@ -72,10 +72,7 @@ def get_topics(pep_content: str) -> set[str]:
     """Get assigned topics for the PEP. Most PEPs do not have a topic."""
 
     try:
-        return {
-            slugify(topic)
-            for topic in re.findall(r"Topic: (.*)", pep_content)[0].split(", ")
-        }
+        return {slugify(topic) for topic in re.findall(r"Topic: (.*)", pep_content)[0].split(", ")}
     except IndexError:
         return set()
 
@@ -92,11 +89,7 @@ def get_delegate(pep_content: str) -> Optional[str]:
     """Get the delegate of the PEP."""
     bdfl_delegates = re.findall(r"BDFL-Delegate: (.*)", pep_content)
     pep_delegates = re.findall(r"PEP-Delegate: (.*)", pep_content)
-    return (
-        (bdfl_delegates or pep_delegates)[0].split(" <")[0].strip()
-        if bdfl_delegates or pep_delegates
-        else None
-    )
+    return (bdfl_delegates or pep_delegates)[0].split(" <")[0].strip() if bdfl_delegates or pep_delegates else None
 
 
 def create_clean_output_dir() -> None:
